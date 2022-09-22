@@ -96,7 +96,7 @@ public class Main extends Plugin implements Listener {
         }
     }
     public void updateGroups() {
-        connections.;
+        
     }
     public static class Loc {
         public double x;

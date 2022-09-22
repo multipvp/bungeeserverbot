@@ -5,27 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="354cfd77-367d-4d50-8d13-3fda3cc93f4c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/Bot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/EventListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/JoinListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/TestCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/mongodb/Connection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/verification/VerificationCode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/verification/VerificationCodes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/multipvp/serverbot/Main$Loc.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/multipvp/serverbot/Main$Loc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/org/multipvp/serverbot/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/org/multipvp/serverbot/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/distributions/serverbot-1.0.tar" beforeDir="false" afterPath="$PROJECT_DIR$/build/distributions/serverbot-1.0.tar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/distributions/serverbot-1.0.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/distributions/serverbot-1.0.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/distributions/serverbot-shadow-1.0.tar" beforeDir="false" afterPath="$PROJECT_DIR$/build/distributions/serverbot-shadow-1.0.tar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/distributions/serverbot-shadow-1.0.zip" beforeDir="false" afterPath="$PROJECT_DIR$/build/distributions/serverbot-shadow-1.0.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/serverbot-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/serverbot-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+    </list>
+    <list id="4e636e80-4dd7-4801-ac11-aaf287359da4" name="Changes by owlie" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/multipvp/serverbot/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +113,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/.gitignore">
+      <ranges>
+        <range start1="4" end1="5" start2="4" end2="5" changelist="4e636e80-4dd7-4801-ac11-aaf287359da4" />
+        <range start1="41" end1="41" start2="41" end2="43" changelist="354cfd77-367d-4d50-8d13-3fda3cc93f4c" />
+      </ranges>
+    </file>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -137,10 +138,12 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "codeWithMe.voiceChat.enabledByDefault": "false",
+    "jdk.selected.JAVA_MODULE": "openjdk-18",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -277,7 +280,7 @@
       <updated>1663735219675</updated>
       <workItem from="1663735220889" duration="4885000" />
       <workItem from="1663742818295" duration="26574000" />
-      <workItem from="1663802597696" duration="11306000" />
+      <workItem from="1663802597696" duration="11481000" />
     </task>
     <servers />
   </component>

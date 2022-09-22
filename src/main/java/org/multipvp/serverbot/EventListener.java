@@ -1,9 +1,12 @@
 package org.multipvp.serverbot;
 
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 
+import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -24,9 +27,89 @@ import org.multipvp.serverbot.verification.VerificationCode;
 import org.multipvp.serverbot.verification.VerificationCodes;
 
 import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class EventListener extends ListenerAdapter {
+    public long lastTimeForDrop = new Date().getTime();
+    public Map<String,Set<String>> previousSet;
+    public Map<String,Set<String>> previousMinecraftId = new HashMap<>();
+    public Map<String,Set<String>> currentMinecraftId;
+    public static void arrangeMembers(Map<String, Set<String>> groups) {
+        if (instance == null) return;
+        long currentTime = new Date().getTime();
+        if (Main.gson.toJson(groups).equals(Main.gson.toJson(instance.previousSet))) return;
+        if (instance.lastTimeForDrop + 1000 > (currentTime)) return;
+        instance.lastTimeForDrop = currentTime;
+        int groupsNeeded = groups.size() + 3;
+        AtomicInteger index = new AtomicInteger(0);
+        Bot.category.getChannels().forEach(guildChannel -> {
+            index.incrementAndGet();
+            if (!guildChannel.getId().equals("1022410179888820224")) {
+                if (index.get() > groupsNeeded) {
+                    guildChannel.delete().queue();
+                }
+            }
+        });
+        while (groupsNeeded > Bot.category.getChannels().size()) {
+            Bot.category.createVoiceChannel(UUID.nameUUIDFromBytes(String.format("group%d",Bot.category.getChannels().size()).getBytes()).toString()).complete();
+        }
+        instance.previousMinecraftId = instance.currentMinecraftId;
+        instance.currentMinecraftId = new HashMap<>();
+        for (String group : groups.keySet()) {
+            VoiceChannel channel = Bot.mainGuild.getVoiceChannelsByName(group,true).get(0);
+            Set<String> minecraftNames = new HashSet<>();
+            for (String member : groups.get(group)) {
+                String discordId = UserCache.getDiscord(member);
+                if (discordId != null) {
+                    try {
+                        //System.out.println(discordId);
+                        Member discordUser = Bot.mainGuild.getMemberById(discordId);//.getVoiceState().inAudioChannel()
+                        //if (discordUser.getVoiceState().inAudioChannel()) {
+                        if (Bot.category.getChannels().contains(discordUser.getVoiceState().getChannel())) {
+                            if (!discordUser.getVoiceState().getChannel().equals(channel)) {
+
+                                Bot.mainGuild.moveVoiceMember(discordUser, channel).complete();
+
+                            }
+                            minecraftNames.add(UserCache.discordIdMinecraftUUID.get(discordUser.getId()));
+                        }
+                        //}
+                    } catch (Exception ignored) {
+                       // ignored.printStackTrace();
+                    }
+                }
+            }
+            for (String member : groups.get(group)) {
+                instance.currentMinecraftId.put(member,minecraftNames);
+            }
+        }
+        for (String member : instance.currentMinecraftId.keySet()) {
+            if (instance.previousMinecraftId.get(member) == null) continue;
+            HashSet<String> oldConnections = new HashSet<>(instance.previousMinecraftId.get(member));
+            HashSet<String> oldConnections2 = new HashSet<>(instance.previousMinecraftId.get(member));
+            HashSet<String> newConnections = new HashSet<>(instance.currentMinecraftId.get(member));
+            oldConnections.removeAll(newConnections);
+            newConnections.removeAll(oldConnections2);
+            for (String p : newConnections) {
+                if (p.equals(member)) continue;
+                Main.proxyServer.getPlayer(UUID.fromString(member)).sendMessage(new ComponentBuilder("[PC] ").bold(true).color(ChatColor.BLUE).append(String.format("+ %s", Main.proxyServer.getPlayer(UUID.fromString(p)).getName())).color(ChatColor.GREEN).bold(false).create());//(String.format("[PC]%s %s %s",ChatColor.RED,"-",Main.proxyServer.getPlayer(UUID.fromString(p)).getName()));
+            }
+            for (String p : oldConnections) {
+                if (p.equals(member)) continue;
+                Main.proxyServer.getPlayer(UUID.fromString(member)).sendMessage(new ComponentBuilder("[PC] ").bold(true).color(ChatColor.BLUE).append(String.format("- %s", Main.proxyServer.getPlayer(UUID.fromString(p)).getName())).color(ChatColor.RED).bold(false).create());
+            }
+        }
+    }
+    public static EventListener instance;
+    @Override
+    public void onReady(@NotNull ReadyEvent event) {
+        instance = this;
+        Bot.mainGuild =   event.getJDA().getGuildById(1016628358848712704L);
+        Bot.category = event.getJDA().getCategoryById(1022394493837791242L);
+        Bot.verifiedRole = Bot.mainGuild.getRoleById(1022410790004867102L);
+    }
 
     @Override
     public void onButtonInteraction(ButtonInteractionEvent event) {
@@ -100,6 +183,8 @@ public class EventListener extends ListenerAdapter {
                         try {
                             Connection.userCol().insertOne(new Document("discordID", code.dID)
                                     .append("minecraftUUID", code.mcUUID));
+                            Bot.mainGuild.modifyNickname(event.getMember(),code.mcUN);
+                            Bot.mainGuild.modifyMemberRoles(event.getMember(),List.of(new Role[]{Bot.verifiedRole}), Collections.emptyList());
                         } catch (Exception e) {
                             event.reply(String.format("❗️ERROR: %s", e));
                         }

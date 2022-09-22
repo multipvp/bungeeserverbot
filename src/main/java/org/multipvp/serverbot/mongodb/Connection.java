@@ -16,9 +16,13 @@ public class Connection {
         MongoClient mongoClient = MongoClients.create(uri);
         return mongoClient;
     }
+    static MongoCollection userCol;
     public static MongoCollection userCol() {
-        MongoDatabase database = client().getDatabase("users");
-        MongoCollection<Document> collection = database.getCollection("users");
-        return collection;
+        if (userCol == null) {
+            MongoDatabase database = client().getDatabase("users");
+            MongoCollection<Document> collection = database.getCollection("users");
+            userCol = collection;
+        }
+        return userCol;
     }
 }
